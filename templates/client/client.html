@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    {% block movies %}
+        {% if error %}
+            <p>{{error}}</p>
+        {% else %}
+            <h1>Client details from our database</h1>
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                 </tr>
+                <TR>
+                    <TD>{{client[0][0]}}</TD>
+                    <TD>{{client[0][1]}}</TD>
+                    <TD>{{client[0][2]}}</TD>
+                </TR>
+            </table>
+        {% endif %}
+    {% endblock %}
+</body>
+</html>

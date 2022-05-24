@@ -27,7 +27,7 @@ def add_client():
     result = ""
     error = ""
     if request.method == 'GET':
-        return render_template('books/add_client.html')
+        return render_template('client/add_client.html')
     elif request.method == 'POST':
         error = None
         first_name = request.form.get('first_name')
@@ -42,3 +42,44 @@ def add_client():
         else:
             result = "Client has been added to our database!"
     return render_template('client/finish.html', result=result, error=error)
+
+
+@client_view.route("/delete_client<client_id>", methods=(['GET']))
+def delete_client_data(client_id):
+    """
+        Remove from database data corresponding to the client_id from url
+    """
+    sql = 'select * from client where id =' + client_id + ';'
+    result = execute_sql(sql, DB_NAME, "select")
+    error = None
+    if result:
+        if result[0] == "Error":
+            error = result[0] + " " + result[1]
+    else:
+        error = f"client id {client_id} doesn't exist in our database"
+    if not error:
+        sql = 'delete from client where id =' + client_id + ';'
+        result = execute_sql(sql, DB_NAME, "delete")
+        if result:
+            if result[0] == "Error":
+                error = result[0] + " " + result[1]
+        else:
+            result = f"Client {client_id} has been deleted from our database"
+    return render_template('client/finish.html', result=result, error=error)
+
+
+@client_view.route("/client_details/<client_id>", methods=(['GET']))
+def client_details(client_id):
+    """
+        Get from database client data corresponding to the id from url
+        and display on the website
+    """
+    error = None
+    sql = 'select * from client where id =' + client_id + ';'
+    result = execute_sql(sql, DB_NAME, "select")
+    if result:
+        if result[0] == "Error":
+            error = result[0] + " " + result[1]
+    else:
+        error = f"client id {client_id} doesn't exist in our database"
+    return render_template('client/client.html', client=result, error=error)
