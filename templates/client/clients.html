@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    {% block clients %}
+        {% if error %}
+            <p>{{error}}</p>
+        {% else %}
+            <h1>Clients from our database</h1>
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                 </tr>
+                {% for client in clients %}
+                <TR>
+                    <TD>{{client[0]}}</TD>
+                    <TD>{{client[1]}}</TD>
+                    <TD>{{client[2]}}</TD>
+                </TR>
+                {% endfor %}
+            </table>
+        {% endif %}
+    {% endblock %}
+</body>
+</html>

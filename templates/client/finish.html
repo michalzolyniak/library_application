@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    {% block movies %}
+    {% if error %}
+        <h1>{{error}}</h1>
+    {% else %}
+        <h1>{{result}}</h1>
+    {% endif %}
+    {% endblock %}
+</body>
+</html>

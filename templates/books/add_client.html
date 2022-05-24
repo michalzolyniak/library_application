@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add client</title>
+    {% block client %}
+        {% if error %}
+            <p>{{error}}</p>
+        {% else %}
+            <form class="add_new_book" method="post">
+                <h1>Add new client to our database:</h1>
+                <label>First name</label><br>
+                <input name="first_name" type="text" maxlength="255"><br>
+                <label>Last name</label><br>
+                <input name="last_name" type="text" maxlength="255"><br>
+                <button type="submit" name="submit" value="movie">Submit</button>
+            </form>
+        {% endif %}
+    {% endblock %}
+</head>
+<body>
+
+</body>
+</html>

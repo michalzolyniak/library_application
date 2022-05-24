@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add book</title>
+    {% block movies %}
+        {% if error %}
+            <p>{{error}}</p>
+        {% else %}
+            <form class="add_new_book" method="post">
+                <h1>Add new book to our database:</h1>
+                <label>ISBN</label><br>
+                <input name="isbn" type="text" maxlength="255"><br>
+                <label>Name</label><br>
+                <input name="name" type="text" maxlength="255"><br>
+                <label>Description</label><br>
+                <input name="description" type="text" maxlength="255"><br>
+<!--                <label>Author</label><br>-->
+<!--                <input name="author" type="text" maxlength="255"><br>-->
+                <button type="submit" name="submit" value="movie">Submit</button>
+            </form>
+        {% endif %}
+    {% endblock %}
+</head>
+<body>
+
+</body>
+</html>

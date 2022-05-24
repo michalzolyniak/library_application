@@ -1,0 +1,1 @@
+DB_NAME = 'library_db'

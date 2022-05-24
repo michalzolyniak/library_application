@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    {% block movies %}
+        {% if error %}
+            <p>{{error}}</p>
+        {% else %}
+            <h1>Books from our database</h1>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>ISBN</th>
+                    <th>NAME</th>
+                    <th>DESCRIPTION</th>
+                    <th>IS LOANED</th>
+                    <th>AUTHOR ID</th>
+                 </tr>
+                {% for book in books %}
+                <TR>
+                    <TD>{{book[0]}}</TD>
+                    <TD>{{book[1]}}</TD>
+                    <TD>{{book[2]}}</TD>
+                    <TD>{{book[3]}}</TD>
+                    <TD>{{book[4]}}</TD>
+                    <TD>{{book[5]}}</TD>
+                </TR>
+                {% endfor %}
+            </table>
+        {% endif %}
+    {% endblock %}
+</body>
+</html>
