@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    {% block movies %}
+        {% if error %}
+            <p>{{error}}</p>
+        {% else %}
+            <label for="books">Select book to loan:</label>
+            <select name="books" id="books">
+                {% for book in books %}
+                    <option value="{{ book[0] }}" SELECTED>{{ book[0] }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+    {% endblock %}
+</body>
+</html>

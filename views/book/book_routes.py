@@ -83,3 +83,34 @@ def delete_book_data(book_id):
         else:
             result = "Book has been deleted from our database"
     return render_template('books/finish.html', result=result, error=error)
+
+
+@book_view.route("/loan_book", methods=(['GET', 'POST']))
+def book_loan():
+    """
+        Loan a specific book from our database
+    """
+    result = ""
+    error = ""
+    if request.method == 'GET':
+        error = None
+        sql = "select name from book where is_loaned = 'f';"
+        result = execute_sql(sql, DB_NAME, "select")
+        if result:
+            if result[0] == "Error":
+                error = result[0] + " " + result[1]
+        return render_template('books/loan_book.html', error=error, books=result)
+    elif request.method == 'POST':
+        error = None
+        isbn = request.form.get('isbn')
+        name = request.form.get('name')
+        description = request.form.get('description')
+        sql = "I into book (isbn, Name, description) values (" + "'" + isbn + "'" \
+              + "," + "'" + name + "'" + "," + "'" + description + "'" + ")"
+        result = execute_sql(sql, DB_NAME, "insert")
+        if result:
+            if result[0] == "Error":
+                error = result[0] + " " + result[1]
+        else:
+            result = "Book has been added to our database!"
+    return render_template('books/finish.html', result=result, error=error)
