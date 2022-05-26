@@ -94,23 +94,22 @@ def book_loan():
     error = ""
     if request.method == 'GET':
         error = None
-        sql = "select name from book where is_loaned = 'f';"
+        sql = "select name, id from book where is_loaned = 'f' order by name;"
         result = execute_sql(sql, DB_NAME, "select")
         if result:
             if result[0] == "Error":
                 error = result[0] + " " + result[1]
+        #         TODO create books descirpiotn event on page
         return render_template('books/loan_book.html', error=error, books=result)
     elif request.method == 'POST':
         error = None
-        isbn = request.form.get('isbn')
-        name = request.form.get('name')
-        description = request.form.get('description')
-        sql = "I into book (isbn, Name, description) values (" + "'" + isbn + "'" \
-              + "," + "'" + name + "'" + "," + "'" + description + "'" + ")"
-        result = execute_sql(sql, DB_NAME, "insert")
+        book_id = request.form.get('books')
+        sql = "Update book Set is_loaned = 't' where id =" + book_id + ";"
+        result = execute_sql(sql, DB_NAME, "update")
         if result:
             if result[0] == "Error":
                 error = result[0] + " " + result[1]
         else:
-            result = "Book has been added to our database!"
+            result = f"Book with id {book_id} has been loaned!"
+    #     TODO redirect with message again to loan_book
     return render_template('books/finish.html', result=result, error=error)
