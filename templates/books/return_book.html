@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    {% block movies %}
+        {% if error %}
+            <p>{{error}}</p>
+        {% else %}
+         <form class="loan_book" method="post">
+            <label for="books">Select book to return:</label>
+            <select name="books" id="books">
+                <option selected>Select</option>
+                {% for book in books %}
+                    <option value="{{ book[1] }}">{{ book[0] }} ({{ book[1] }}) </option>
+                {% endfor %}
+            </select>
+            <button type="submit" name="submit">Submit</button>
+         </form>
+        {% endif %}
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    {% block movies %}
+        {% if error %}
+            <p>{{error}}</p>
+        {% else %}
+         <form class="loan_book" method="post">
+            <label for="books">Select book to rate:</label>
+            <select name="books" id="books">
+                <option selected>Select</option>
+                {% for book in books %}
+                    <option value="{{ book[1] }}">{{ book[0] }} ({{ book[1] }}) </option>
+                {% endfor %}
+            </select>
+            <label for="books">Choose rating:</label>
+            <select name="rating" id="rating">
+                <option selected>Select</option>
+                {% for rate in rating %}
+                    <option value={{ rate }}> {{ rate }} </option>
+                {% endfor %}
+            </select>
+             <p>
+                 <label for="comment">Enter your comments:</label>
+                 <textarea name="comment" id="comment"></textarea>
+             </p>
+            <button type="submit" name="submit">Submit</button>
+         </form>
+        {% endif %}
+    {% endblock %}
+</body>
+</html>

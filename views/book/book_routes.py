@@ -99,7 +99,7 @@ def book_loan():
         if result:
             if result[0] == "Error":
                 error = result[0] + " " + result[1]
-        #         TODO create books descirpiotn event on page
+        #         TODO create books description event on page
         return render_template('books/loan_book.html', error=error, books=result)
     elif request.method == 'POST':
         error = None
@@ -110,6 +110,68 @@ def book_loan():
             if result[0] == "Error":
                 error = result[0] + " " + result[1]
         else:
-            result = f"Book with id {book_id} has been loaned!"
+            result = f"Book with id {book_id} has been loaned."
     #     TODO redirect with message again to loan_book
+    #     TODO BLOCK SELECT OPTION
+    return render_template('books/finish.html', result=result, error=error)
+
+
+@book_view.route("/return_book", methods=(['GET', 'POST']))
+def return_book():
+    """
+        Return a loaned book from our database
+    """
+    result = ""
+    error = ""
+    if request.method == 'GET':
+        error = None
+        sql = "select name, id from book where is_loaned = 't' order by name;"
+        result = execute_sql(sql, DB_NAME, "select")
+        if result:
+            if result[0] == "Error":
+                error = result[0] + " " + result[1]
+        return render_template('books/return_book.html', error=error, books=result)
+    elif request.method == 'POST':
+        error = None
+        book_id = request.form.get('books')
+        sql = "Update book Set is_loaned = 'f' where id =" + book_id + ";"
+        result = execute_sql(sql, DB_NAME, "update")
+        if result:
+            if result[0] == "Error":
+                error = result[0] + " " + result[1]
+        else:
+            result = f"Book with id {book_id} has been returned."
+    #     TODO redirect with message again to loan_book
+    #     TODO BLOCK SELECT OPTION
+    return render_template('books/finish.html', result=result, error=error)
+
+
+@book_view.route("/book_rating", methods=(['GET', 'POST']))
+def book_rating():
+    """
+        Add a rating for a book from our database
+    """
+    result = ""
+    error = ""
+    if request.method == 'GET':
+        rating = [1, 2, 3, 4, 5]
+        error = None
+        sql = "select name, id from book order by name;"
+        result = execute_sql(sql, DB_NAME, "select")
+        if result:
+            if result[0] == "Error":
+                error = result[0] + " " + result[1]
+        return render_template('books/rating_book.html', books=result, rating=rating, error=error)
+    elif request.method == 'POST':
+        error = None
+        book_id = request.form.get('books')
+        sql = "Update book Set is_loaned = 'f' where id =" + book_id + ";"
+        result = execute_sql(sql, DB_NAME, "update")
+        if result:
+            if result[0] == "Error":
+                error = result[0] + " " + result[1]
+        else:
+            result = f"Book with id {book_id} has been returned."
+    #     TODO redirect with message again to loan_book
+    #     TODO BLOCK SELECT OPTION
     return render_template('books/finish.html', result=result, error=error)
